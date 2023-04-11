@@ -68,6 +68,19 @@ func (p *Power) Cycle() error {
 	return nil
 }
 
+func (p *Power) Soft() error {
+	params := p.cl.getBaseParam()
+	params = append(params, "power", "soft")
+
+	_, err := p.cl.execute(params)
+	if err != nil {
+		return fmt.Errorf("failed to power on: %w", err)
+	}
+
+	return nil
+
+}
+
 // Status fetches the current power state of the ipmi server
 func (p *Power) Status() (PowerState, error) {
 	params := p.cl.getBaseParam()
